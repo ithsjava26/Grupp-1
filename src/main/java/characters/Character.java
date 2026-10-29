@@ -52,4 +52,33 @@ public abstract class Character {
         int actualDamage = Math.max(0, damage - defense);
         health = Math.max(0, health - actualDamage);
     }
+
+    public void heal(int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Healing amount must be positive");
+        }
+
+        health = Math.min(maxHealth, health + amount);
+    }
+
+    public void increaseMaxHealth(int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Health increase must be positive");
+        }
+
+        boolean wasAtFullHealth = health == maxHealth;
+        maxHealth += amount;
+
+        if (wasAtFullHealth) {
+            health = maxHealth;
+        }
+    }
+
+    public void increaseDefense(int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Defense increase must be positive");
+        }
+
+        defense += amount;
+    }
 }
