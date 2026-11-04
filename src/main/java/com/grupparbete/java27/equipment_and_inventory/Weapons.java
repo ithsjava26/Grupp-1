@@ -1,34 +1,49 @@
 package com.grupparbete.java27.equipment_and_inventory;
 
-import com.grupparbete.java27.Records;
-
 import java.util.TreeMap;
+
 public class Weapons {
 
-    TreeMap<Object, Records.Weapon> allWeapons = new TreeMap<>();
+    static TreeMap<Object, Records.Weapon> allWeapons = new TreeMap<>();
 
-    Records.Weapon a = new Records.Weapon("a", 4);
-    Records.Weapon b = new Records.Weapon("b", 3);
-    Records.Weapon c = new Records.Weapon("c", 2);
-    Records.Weapon d = new Records.Weapon("d", 1);
-    Records.Weapon e = new Records.Weapon("e", 1);
-    Records.Weapon f = new Records.Weapon("f", 3);
-
-    private void initiateAllWeapons() {
-        allWeapons.put(1, a);
-        allWeapons.put(2, b);
-        allWeapons.put(3, c);
-        allWeapons.put(4, d);
-        allWeapons.put(5, e);
-        allWeapons.put(6, f);
+    public static void initiateAllWeapons() {
+        allWeapons.put(1, new Records.Weapon("a", 20));
+        allWeapons.put(2, new Records.Weapon("b", 15));
+        allWeapons.put(3, new Records.Weapon("c", 18));
+        allWeapons.put(4, new Records.Weapon("d", 10));
+        allWeapons.put(5, new Records.Weapon("e", 12));
+        allWeapons.put(6, new Records.Weapon("f", 8));
+        allWeapons.put(7, new Records.Weapon("g", 5));
     }
 
-    Records.Weapon[] getNoneSimilarWeapons(int amount){
+
+
+    public static Records.Weapon getRandomWeapon(){
+
+        return allWeapons.get(((int) (Math.random() * (6)) + 1));
+    }
+
+
+
+    public Records.Weapon getWeaponById(int id){
+        if(allWeapons.containsKey(id)){
+            return allWeapons.get(id);
+        }else{
+            IO.println("Could not find Weapon");
+        }
+
+        return null;
+    }
+
+    Records.Weapon[] getUpTo3Weapons(int amount){
         Records.Weapon[] sendItems = new Records.Weapon[3];
         Records.Weapon first = null;
         Records.Weapon second = null;
         Records.Weapon third = null;
 
+        if (amount > 3){
+            amount = 3;
+        }
 
         switch(amount){
             case 1:

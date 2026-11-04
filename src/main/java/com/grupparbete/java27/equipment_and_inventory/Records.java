@@ -1,4 +1,4 @@
-package com.grupparbete.java27;
+package com.grupparbete.java27.equipment_and_inventory;
 
 public class Records {
 

@@ -1,32 +1,53 @@
 package com.grupparbete.java27.equipment_and_inventory;
 
 
-import java.util.Random;
+import java.util.ArrayList;
 
-public class Loot {
+import static com.grupparbete.java27.equipment_and_inventory.Armor.*;
+import static com.grupparbete.java27.equipment_and_inventory.Inventory.initiateAllEquipment;
+import static com.grupparbete.java27.equipment_and_inventory.Weapons.*;
 
-    public void getLoot(){
+public class Loot{
+
+    public ArrayList<Object> getLoot(){
 
         int amount = lootAmount();
 
-       for (int i = 0; i < amount; i++){
-           int typeRoll = (int) (Math.random() * 3 + 1);
+        ArrayList<Object> loot = new ArrayList<>();
 
-           switch (typeRoll){
-               case 1:
-                   // Om 1 ta emot tillbaka ett weapon()
-                   break;
-               case 2: // om 2 ta emot tillbaka en armor()
-                   break;
-               case 3: // om 3 ta emot en potion()
-                   break;
-           }
-       }
+        for (int i = 0; i < amount; i++){
+            int typeRoll = (int) (Math.random() * 3 + 1);
+
+            switch (typeRoll){
+                case 1:
+                    Records.Weapon fetchedWeapon = getRandomWeapon();
+                    loot.add(fetchedWeapon);
+                    break;
+                case 2: Records.Armor fethedArmor = getRandomArmor();
+                        loot.add(fethedArmor);
+                    break;
+                case 3: loot.add("TBD");
+                    break;
+            }
+        }
+        return loot;
+    }
+
+    void main(){
+        initiateAllEquipment();
+        ArrayList<Object> newArray = getLoot();
+
+        IO.println(getRandomArmor());
+        IO.println(getRandomWeapon());
+
+        for (int i = 0; i < newArray.size(); i++){
+            IO.println(newArray.get(i));
+        }
     }
 
 
     //Kan öka mängd och göra så att starter mängden är högre än 1
-    public int lootAmount(){
+    public static int lootAmount(){
         int amount = 1;
 
         for(int i = 0; i < 2; i++){
