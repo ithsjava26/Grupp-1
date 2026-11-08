@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import static com.grupparbete.java27.equipment_and_inventory.Armor.*;
 import static com.grupparbete.java27.equipment_and_inventory.Inventory.initiateAllEquipment;
+import static com.grupparbete.java27.equipment_and_inventory.Potions.getRandomPotion;
 import static com.grupparbete.java27.equipment_and_inventory.Weapons.*;
 
 public class Loot{
@@ -26,7 +27,9 @@ public class Loot{
                 case 2: Records.Armor fethedArmor = getRandomArmor();
                         loot.add(fethedArmor);
                     break;
-                case 3: loot.add("TBD");
+                case 3:
+                    Records.Potion fetchedPotion = getRandomPotion();
+                    loot.add(fetchedPotion);
                     break;
             }
         }

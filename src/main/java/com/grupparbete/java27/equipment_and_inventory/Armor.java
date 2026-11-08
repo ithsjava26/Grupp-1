@@ -26,11 +26,11 @@ public class Armor {
 
 
 
-    public static Records.Armor getWeaponById(int id){
+    public static Records.Armor getArmorById(int id){
         if(allArmors.containsKey(id)){
             return allArmors.get(id);
         }else{
-            IO.println("Could not find Weapon");
+            IO.println("Could not find Armor");
         }
 
         return null;
