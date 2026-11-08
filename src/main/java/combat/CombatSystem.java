@@ -7,6 +7,7 @@ public class CombatSystem {
 
     private final Player player;
     private final Enemy enemy;
+    private boolean playerTurn = true;
 
     public CombatSystem(Player player, Enemy enemy) {
 
@@ -18,17 +19,29 @@ public class CombatSystem {
         this.enemy = enemy;
     }
 
+    public boolean isPlayerTurn() {
+        return playerTurn;
+    }
+
     public void playerAttack(AttackStrategy strategy) {
 
         if (strategy == null) {
             throw new IllegalArgumentException("Attack strategy cannot be null");
         }
 
-        if (!player.isAlive() || !enemy.isAlive()) {
+        if (hasCombatEnded()) {
             return;
         }
 
+        if (!playerTurn) {
+            throw new IllegalStateException("It is not the player's turn");
+        }
+
         strategy.attack(player, enemy);
+
+        if (!hasCombatEnded()) {
+            playerTurn = false;
+        }
     }
 
     public void enemyAttack(AttackStrategy strategy) {
@@ -37,11 +50,19 @@ public class CombatSystem {
             throw new IllegalArgumentException("Attack strategy cannot be null");
         }
 
-        if (!enemy.isAlive() || !player.isAlive()) {
+        if (hasCombatEnded()) {
             return;
         }
 
+        if (playerTurn) {
+            throw new IllegalStateException("It is not the enemy's turn");
+        }
+
         strategy.attack(enemy, player);
+
+        if (!hasCombatEnded()) {
+            playerTurn = true;
+        }
     }
 
     public boolean hasCombatEnded() {

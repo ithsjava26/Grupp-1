@@ -9,6 +9,59 @@ import static org.junit.jupiter.api.Assertions.*;
 class CombatSystemTest {
 
     @Test
+    void playerStartsFirst() {
+        Player player = new Player("Player", 100, 10);
+        Enemy enemy = new Enemy("Enemy", 50, 5);
+
+        CombatSystem combat = new CombatSystem(player, enemy);
+
+        assertTrue(combat.isPlayerTurn());
+    }
+
+    @Test
+    void playerCannotAttackTwiceInARow() {
+        Player player = new Player("Player", 100, 10);
+        Enemy enemy = new Enemy("Enemy", 50, 5);
+
+        CombatSystem combat = new CombatSystem(player, enemy);
+
+        combat.playerAttack(new MeleeAttack());
+
+        assertThrows(IllegalStateException.class,
+                () -> combat.playerAttack(new MeleeAttack()));
+    }
+
+    @Test
+    void enemyCannotAttackTwiceInARow() {
+        Player player = new Player("Player", 100, 10);
+        Enemy enemy = new Enemy("Enemy", 50, 5);
+
+        CombatSystem combat = new CombatSystem(player, enemy);
+
+        combat.playerAttack(new MeleeAttack());
+        combat.enemyAttack(new MeleeAttack());
+
+        assertThrows(IllegalStateException.class,
+                () -> combat.enemyAttack(new MeleeAttack()));
+    }
+
+    @Test
+    void turnsAlternateBetweenPlayerAndEnemy() {
+        Player player = new Player("Player", 100, 10);
+        Enemy enemy = new Enemy("Enemy", 50, 5);
+
+        CombatSystem combat = new CombatSystem(player, enemy);
+
+        assertTrue(combat.isPlayerTurn());
+
+        combat.playerAttack(new MeleeAttack());
+        assertFalse(combat.isPlayerTurn());
+
+        combat.enemyAttack(new MeleeAttack());
+        assertTrue(combat.isPlayerTurn());
+    }
+
+    @Test
     void meleeAttackDealsCorrectDamage() {
         Player player = new Player("Player", 100, 10);
         Enemy enemy = new Enemy("Enemy", 50, 5);
@@ -57,11 +110,24 @@ class CombatSystemTest {
     void combatEndsWhenPlayerIsDefeated() {
         Player player = new Player("Player", 10, 0);
         Enemy enemy = new Enemy("Enemy", 100, 10);
+        CombatSystem combat = new CombatSystem(player, enemy);
+
+        combat.playerAttack(new MeleeAttack());
+        combat.enemyAttack(new MeleeAttack());
+
+        assertTrue(combat.hasCombatEnded());
+    }
+
+    @Test
+    void turnDoesNotChangeWhenCombatEnds() {
+        Player player = new Player("Player", 100, 0);
+        Enemy enemy = new Enemy("Enemy", 10, 0);
 
         CombatSystem combat = new CombatSystem(player, enemy);
 
-        combat.enemyAttack(new MeleeAttack());
+        combat.playerAttack(new SpecialAttack());
 
+        assertTrue(combat.isPlayerTurn());
         assertTrue(combat.hasCombatEnded());
     }
 
@@ -86,6 +152,39 @@ class CombatSystemTest {
         combat.enemyAttack(new MeleeAttack());
 
         assertEquals(100, player.getHealth());
+    }
+
+    @Test
+    void enemyCannotAttackAfterPlayerIsDefeated() {
+        Player player = new Player("Player", 10, 0);
+        Enemy enemy = new Enemy("Enemy", 100, 0);
+
+        CombatSystem combat = new CombatSystem(player, enemy);
+
+        combat.playerAttack(new MeleeAttack());
+        combat.enemyAttack(new SpecialAttack());
+
+        int enemyHealthBefore = enemy.getHealth();
+
+        combat.enemyAttack(new MeleeAttack());
+
+        assertEquals(enemyHealthBefore, enemy.getHealth());
+    }
+
+    @Test
+    void playerCannotAttackAfterEnemyIsDefeated() {
+        Player player = new Player("Player", 100, 0);
+        Enemy enemy = new Enemy("Enemy", 10, 0);
+
+        CombatSystem combat = new CombatSystem(player, enemy);
+
+        combat.playerAttack(new SpecialAttack());
+
+        int enemyHealthBefore = enemy.getHealth();
+
+        combat.playerAttack(new MeleeAttack());
+
+        assertEquals(enemyHealthBefore, enemy.getHealth());
     }
 
     @Test
