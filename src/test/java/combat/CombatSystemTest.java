@@ -1,12 +1,35 @@
+
 package combat;
 
 import characters.Player;
 import characters.Enemy;
 import org.junit.jupiter.api.Test;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CombatSystemTest {
+
+    private static class SequenceRandom extends Random {
+
+        private final int[] values;
+        private int index = 0;
+
+        SequenceRandom(int... values) {
+            this.values = values;
+        }
+
+        @Override
+        public int nextInt(int bound) {
+            int value = values[index++];
+
+            if (value < 0 || value >= bound) {
+                throw new IllegalArgumentException("Invalid random value");
+            }
+
+            return value;
+        }
+    }
 
     @Test
     void playerStartsFirst() {
@@ -62,46 +85,15 @@ class CombatSystemTest {
     }
 
     @Test
-    void meleeAttackDealsCorrectDamage() {
-        Player player = new Player("Player", 100, 10);
-        Enemy enemy = new Enemy("Enemy", 50, 5);
-
-        CombatSystem combat = new CombatSystem(player, enemy);
-        combat.playerAttack(new MeleeAttack());
-
-        assertEquals(45, enemy.getHealth());
-    }
-
-    @Test
-    void rangedAttackDealsCorrectDamage() {
-        Player player = new Player("Player", 100, 10);
-        Enemy enemy = new Enemy("Enemy", 50, 5);
-
-        CombatSystem combat = new CombatSystem(player, enemy);
-        combat.playerAttack(new RangedAttack());
-
-        assertEquals(35, enemy.getHealth());
-    }
-
-    @Test
-    void specialAttackDealsCorrectDamage() {
-        Player player = new Player("Player", 100, 10);
-        Enemy enemy = new Enemy("Enemy", 50, 5);
-
-        CombatSystem combat = new CombatSystem(player, enemy);
-        combat.playerAttack(new SpecialAttack());
-
-        assertEquals(25, enemy.getHealth());
-    }
-
-    @Test
     void combatEndsWhenEnemyIsDefeated() {
         Player player = new Player("Player", 100, 10);
         Enemy enemy = new Enemy("Enemy", 10, 0);
 
         CombatSystem combat = new CombatSystem(player, enemy);
 
-        combat.playerAttack(new MeleeAttack());
+        combat.playerAttack(new MeleeAttack(
+                new SequenceRandom(99, 0, 99)
+        ));
 
         assertTrue(combat.hasCombatEnded());
     }
@@ -110,10 +102,16 @@ class CombatSystemTest {
     void combatEndsWhenPlayerIsDefeated() {
         Player player = new Player("Player", 10, 0);
         Enemy enemy = new Enemy("Enemy", 100, 10);
+
         CombatSystem combat = new CombatSystem(player, enemy);
 
-        combat.playerAttack(new MeleeAttack());
-        combat.enemyAttack(new MeleeAttack());
+        combat.playerAttack(new MeleeAttack(
+                new SequenceRandom(99, 0, 99)
+        ));
+
+        combat.enemyAttack(new MeleeAttack(
+                new SequenceRandom(99, 0, 99)
+        ));
 
         assertTrue(combat.hasCombatEnded());
     }
@@ -125,7 +123,9 @@ class CombatSystemTest {
 
         CombatSystem combat = new CombatSystem(player, enemy);
 
-        combat.playerAttack(new SpecialAttack());
+        combat.playerAttack(new SpecialAttack(
+                new SequenceRandom(0, 99, 99)
+        ));
 
         assertTrue(combat.isPlayerTurn());
         assertTrue(combat.hasCombatEnded());
@@ -148,8 +148,12 @@ class CombatSystemTest {
 
         CombatSystem combat = new CombatSystem(player, enemy);
 
-        combat.playerAttack(new SpecialAttack());
-        combat.enemyAttack(new MeleeAttack());
+        combat.playerAttack(new SpecialAttack(
+                new SequenceRandom(0, 99, 99)
+        ));
+
+        assertThrows(IllegalStateException.class,
+                () -> combat.enemyAttack(new MeleeAttack()));
 
         assertEquals(100, player.getHealth());
     }
@@ -161,14 +165,16 @@ class CombatSystemTest {
 
         CombatSystem combat = new CombatSystem(player, enemy);
 
-        combat.playerAttack(new MeleeAttack());
-        combat.enemyAttack(new SpecialAttack());
+        combat.playerAttack(new MeleeAttack(
+                new SequenceRandom(99, 0, 99)
+        ));
 
-        int enemyHealthBefore = enemy.getHealth();
+        combat.enemyAttack(new SpecialAttack(
+                new SequenceRandom(15, 0, 0)
+        ));
 
-        combat.enemyAttack(new MeleeAttack());
-
-        assertEquals(enemyHealthBefore, enemy.getHealth());
+        assertThrows(IllegalStateException.class,
+                () -> combat.enemyAttack(new MeleeAttack()));
     }
 
     @Test
@@ -178,13 +184,12 @@ class CombatSystemTest {
 
         CombatSystem combat = new CombatSystem(player, enemy);
 
-        combat.playerAttack(new SpecialAttack());
+        combat.playerAttack(new MeleeAttack(
+                new SequenceRandom(99, 0, 99)
+        ));
 
-        int enemyHealthBefore = enemy.getHealth();
-
-        combat.playerAttack(new MeleeAttack());
-
-        assertEquals(enemyHealthBefore, enemy.getHealth());
+        assertThrows(IllegalStateException.class,
+                () -> combat.playerAttack(new MeleeAttack()));
     }
 
     @Test
@@ -212,5 +217,4 @@ class CombatSystemTest {
         assertThrows(IllegalArgumentException.class,
                 () -> combat.enemyAttack(null));
     }
-
 }

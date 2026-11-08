@@ -1,3 +1,4 @@
+
 package combat;
 
 import characters.Player;
@@ -12,7 +13,9 @@ public class CombatSystem {
     public CombatSystem(Player player, Enemy enemy) {
 
         if (player == null || enemy == null) {
-            throw new IllegalArgumentException("Player and enemy cannot be null");
+            throw new IllegalArgumentException(
+                    "Player and enemy cannot be null"
+            );
         }
 
         this.player = player;
@@ -26,15 +29,27 @@ public class CombatSystem {
     public void playerAttack(AttackStrategy strategy) {
 
         if (strategy == null) {
-            throw new IllegalArgumentException("Attack strategy cannot be null");
+            throw new IllegalArgumentException(
+                    "Attack strategy cannot be null"
+            );
         }
 
         if (hasCombatEnded()) {
-            return;
+            throw new IllegalStateException(
+                    "Combat has already ended"
+            );
+        }
+
+        if (!player.isAlive()) {
+            throw new IllegalStateException(
+                    "Player is defeated and cannot attack"
+            );
         }
 
         if (!playerTurn) {
-            throw new IllegalStateException("It is not the player's turn");
+            throw new IllegalStateException(
+                    "It is not the player's turn"
+            );
         }
 
         strategy.attack(player, enemy);
@@ -47,15 +62,27 @@ public class CombatSystem {
     public void enemyAttack(AttackStrategy strategy) {
 
         if (strategy == null) {
-            throw new IllegalArgumentException("Attack strategy cannot be null");
+            throw new IllegalArgumentException(
+                    "Attack strategy cannot be null"
+            );
         }
 
         if (hasCombatEnded()) {
-            return;
+            throw new IllegalStateException(
+                    "Combat has already ended"
+            );
+        }
+
+        if (!enemy.isAlive()) {
+            throw new IllegalStateException(
+                    "Enemy is defeated and cannot attack"
+            );
         }
 
         if (playerTurn) {
-            throw new IllegalStateException("It is not the enemy's turn");
+            throw new IllegalStateException(
+                    "It is not the enemy's turn"
+            );
         }
 
         strategy.attack(enemy, player);
