@@ -56,9 +56,6 @@ public class Inventory {
 
 
     //-------------------------------------------------------
-    public void collectPotion(Records.Potion potion){
-        potionBag.add(potion);
-    }
 
     public void printPotions (){
         int strengthPotions = 0;
