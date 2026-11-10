@@ -1,4 +1,4 @@
-package com.grupparbete.java27.equipment_and_inventory;
+package equipment_and_inventory;
 
 import java.util.TreeMap;
 
@@ -7,13 +7,13 @@ public class Weapons {
     static TreeMap<Object, Records.Weapon> allWeapons = new TreeMap<>();
 
     public static void initiateAllWeapons() {
-        allWeapons.put(1, new Records.Weapon("a", 20));
-        allWeapons.put(2, new Records.Weapon("b", 15));
-        allWeapons.put(3, new Records.Weapon("c", 18));
-        allWeapons.put(4, new Records.Weapon("d", 10));
-        allWeapons.put(5, new Records.Weapon("e", 12));
-        allWeapons.put(6, new Records.Weapon("f", 8));
-        allWeapons.put(7, new Records.Weapon("g", 5));
+        allWeapons.put(1, new Records.Weapon("a", 8));
+        allWeapons.put(2, new Records.Weapon("b", 12));
+        allWeapons.put(3, new Records.Weapon("c", 15));
+        allWeapons.put(4, new Records.Weapon("d", 18));
+        allWeapons.put(5, new Records.Weapon("e", 21));
+        allWeapons.put(6, new Records.Weapon("f", 24));
+        allWeapons.put(7, new Records.Weapon("g", 26));
     }
 
 
