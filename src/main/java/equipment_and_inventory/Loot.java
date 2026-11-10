@@ -10,7 +10,42 @@ import static equipment_and_inventory.Weapons.*;
 
 public class Loot{
 
-    public void getLoot(){
+
+    public void getLoot() {
+
+        int amount = lootAmount();
+
+        int position = 1;
+        for (int i = 0; i < amount; i++) {
+            int typeRoll = (int) (Math.random() * 3 + 1);
+
+
+            switch (typeRoll) {
+                case 1:
+                    Records.Weapon fetchedWeapon = getRandomWeapon();
+                    IO.print("You received: ");
+                    printLoot(fetchedWeapon);
+                    Inventory.takeEquipment(fetchedWeapon);
+                    break;
+                case 2:
+                    Records.Armor fetchedArmor = getRandomArmor();
+                    IO.print("You received:");
+                    printLoot(fetchedArmor);
+                    Inventory.takeEquipment(fetchedArmor);
+                    break;
+                case 3:
+                    Records.Potion fetchedPotion = getRandomPotion();
+                    IO.print("You Received:");
+                    printLoot(fetchedPotion);
+                    Inventory.takeEquipment(fetchedPotion);
+                    break;
+            }
+            position++;
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------------------
+    public void getLootWithOptionSelect(){
 
         int amount = lootAmount();
 
@@ -24,19 +59,13 @@ public class Loot{
             switch (typeRoll){
                 case 1:
                     Records.Weapon fetchedWeapon = getRandomWeapon();
-                    IO.print(position + ". ");
-                    printLoot(fetchedWeapon);
                     loot.add(fetchedWeapon);
                     break;
                 case 2: Records.Armor fetchedArmor = getRandomArmor();
-                        IO.print(position + ". ");
-                        printLoot(fetchedArmor);
                         loot.add(fetchedArmor);
                     break;
                 case 3:
                     Records.Potion fetchedPotion = getRandomPotion();
-                    IO.print(position + ". ");
-                    printLoot(fetchedPotion);
                     loot.add(fetchedPotion);
                     break;
             }
