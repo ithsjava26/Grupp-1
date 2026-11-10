@@ -126,49 +126,53 @@ public class Inventory {
 
 
     //----------------------------------------------------------
-    public static void takeEquipment(Records.Weapon newWeapon){
+    public static void takeEquipment(Records.Weapon newWeapon) {
         int nav = 0;
 
-        while(true){
-            IO.println("Do you want to replace " + equippedWeapon.name() + " with " + newWeapon.name() + "?");
-            IO.println("1. Yes");
-            IO.println("2. no");
-            try {
-                nav = Integer.parseInt(IO.readln());
-            } catch (NumberFormatException e) {
-                nav = 0;
+        if (equippedWeapon != newWeapon){
+            while (true) {
+                IO.println("Do you want to replace " + equippedWeapon.name() + " with " + newWeapon.name() + "?");
+                IO.println("1. Yes");
+                IO.println("2. no");
+                try {
+                    nav = Integer.parseInt(IO.readln());
+                } catch (NumberFormatException e) {
+                    nav = 0;
+                }
+                if (nav == 1 || nav == 2) {
+                    break;
+                }
+                IO.println("Not a valid input");
             }
-            if (nav == 1 || nav == 2){
-                break;
-            }
-            IO.println("Not a valid input");
-        }
 
-        if(nav == 1){
-            equippedWeapon = newWeapon;
+            if (nav == 1) {
+                equippedWeapon = newWeapon;
+            }
         }
     }
 
     public static void takeEquipment(Records.Armor newArmor){
         int nav = 0;
 
-        while(true){
-            IO.println("Do you want to replace " + equippedArmor.name() + " with " + newArmor.name() + "?");
-            IO.println("1. Yes");
-            IO.println("2. no");
-            try {
-                nav = Integer.parseInt(IO.readln());
-            } catch (NumberFormatException e) {
-                nav = 0;
+        if(equippedArmor != newArmor) {
+            while (true) {
+                IO.println("Do you want to replace " + equippedArmor.name() + " with " + newArmor.name() + "?");
+                IO.println("1. Yes");
+                IO.println("2. no");
+                try {
+                    nav = Integer.parseInt(IO.readln());
+                } catch (NumberFormatException e) {
+                    nav = 0;
+                }
+                if (nav == 1 || nav == 2) {
+                    break;
+                }
+                IO.println("Not a valid input");
             }
-            if (nav == 1 || nav == 2){
-                break;
-            }
-            IO.println("Not a valid input");
-        }
 
-        if(nav == 1){
-            equippedArmor = newArmor;
+            if (nav == 1) {
+                equippedArmor = newArmor;
+            }
         }
     }
 
