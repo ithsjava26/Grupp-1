@@ -85,39 +85,111 @@ public class Inventory {
             }
         }
 
-        if (strengthPotions > 0){
+
             IO.println("1. Attack drink: " + strengthPotions);
-        }
-        if (defencePotions > 0){
+
             IO.println("2. Defence drink: " + defencePotions);
-        }
-        if (smallHealthPotions > 0){
+
             IO.println("3. Small recovery drink: " + smallHealthPotions);
-        }
-        if (mediumHealthPotions > 0){
+
             IO.println("4. Medium recovery drink: " + mediumHealthPotions);
-        }
-        if (largeHealthPotions > 0){
+
             IO.println("5. Large recovery drink: " + largeHealthPotions);
-        }
+
         IO.println();
 
     }
 
-    public int usedPotion(Records.Potion potion){
 
-        int position = 0;
-        for(int i = 0; i < potionBag.size(); i++){
-            if (potion == potionBag.get(i)){
-             position =  i;
-                break;
+    //------------------------------------------------------------------------------------------------------------
+    public String printPotionsWithSelection(){
+        int strengthPotions = 0;
+        int defencePotions = 0;
+        int smallHealthPotions = 0;
+        int mediumHealthPotions = 0;
+        int largeHealthPotions = 0;
+
+        for(Records.Potion potion : potionBag){
+
+            switch (potion.name()){
+                case "Attack drink":
+                    strengthPotions++;
+                    break;
+                case "Defence drink":
+                    defencePotions++;
+                    break;
+                case "Small recovery drink":
+                    smallHealthPotions++;
+                    break;
+                case "Medium recovery drink":
+                    mediumHealthPotions++;
+                    break;
+                case "Large recovery drink":
+                    largeHealthPotions++;
+                    break;
             }
-
         }
 
-        potionBag.remove(potion);
 
-        return potion.effectStrength();
+        IO.println("1. Attack drink: " + strengthPotions);
+
+        IO.println("2. Defence drink: " + defencePotions);
+
+        IO.println("3. Small recovery drink: " + smallHealthPotions);
+
+        IO.println("4. Medium recovery drink: " + mediumHealthPotions);
+
+        IO.println("5. Large recovery drink: " + largeHealthPotions);
+
+        IO.println("6. Return");
+        IO.println();
+
+        boolean running = true;
+        int nav = 0;
+        while(running) {
+            try {
+                IO.readln("Pick an option");
+            } catch (NumberFormatException e) {
+                nav = 0;
+            }
+            if(nav < 1 || nav > 6) {
+                IO.readln("Please enter a valid number");
+            }
+
+            switch(nav ){
+                case 1:
+                    usedPotion(allPotions.get(1));
+                    return allPotions.get(1).effect();
+                case 2:
+                    usedPotion(allPotions.get(2));
+                    return allPotions.get(2).effect();
+                case 3:
+                    usedPotion(allPotions.get(3));
+                    return allPotions.get(3).effect();
+                case 4:
+                    usedPotion(allPotions.get(4));
+                    return allPotions.get(4).effect();
+                case 5:
+                    usedPotion(allPotions.get(5));
+                    return allPotions.get(5).effect();
+                case 6:
+                    running = false;
+                    break;
+            }
+        }
+        return "";
+    }
+
+    public void usedPotion(Records.Potion potion){
+
+        for (Records.Potion pot : potionBag){
+            if(pot == potion){
+                potionBag.remove(potion);
+                break;
+            }
+        }
+
+        IO.println("You dont have any of those potions");
     }
 
 
