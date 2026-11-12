@@ -4,6 +4,9 @@ import characters.Character;
 
 public interface AttackStrategy {
 
-    void attack(Character attacker, Character target);
+    default String getName() {
+        return getClass().getSimpleName();
+    }
 
+    void attack(Character attacker, Character target);
 }

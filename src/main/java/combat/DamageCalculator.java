@@ -5,14 +5,14 @@ import java.util.Random;
 
 public class DamageCalculator {
 
-    public static void performAttack(
+    public static boolean performAttack(
             Character attacker,
             Character target,
             int minDamage,
             int maxDamage,
             int missChance,
             int backlashChance,
-            Random random ){
+            Random random) {
 
         if (attacker == null || target == null || random == null) {
             throw new IllegalArgumentException("Arguments cannot be null");
@@ -27,8 +27,8 @@ public class DamageCalculator {
             throw new IllegalArgumentException("Chances must be between 0 and 100");
         }
 
-        if (missChance > 0 && random.nextInt(100) < missChance) {
-            return;
+        if (random.nextInt(100) < missChance) {
+            return false;
         }
 
         int damage = minDamage + random.nextInt(maxDamage - minDamage + 1);
@@ -45,5 +45,7 @@ public class DamageCalculator {
             int recoilDamage = (int) Math.ceil(damage * 0.5);
             attacker.takeDamage(recoilDamage);
         }
+
+        return true;
     }
 }

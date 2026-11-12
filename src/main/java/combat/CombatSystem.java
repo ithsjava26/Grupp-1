@@ -53,6 +53,7 @@ public class CombatSystem {
         }
 
         strategy.attack(player, enemy);
+        player.reduceDebuffDuration();
 
         if (!hasCombatEnded()) {
             playerTurn = false;
@@ -86,6 +87,7 @@ public class CombatSystem {
         }
 
         strategy.attack(enemy, player);
+        enemy.reduceDebuffDuration();
 
         if (!hasCombatEnded()) {
             playerTurn = true;
