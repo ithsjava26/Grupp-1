@@ -7,13 +7,13 @@ public class Weapons {
     static TreeMap<Object, Records.Weapon> allWeapons = new TreeMap<>();
 
     public static void initiateAllWeapons() {
-        allWeapons.put(1, new Records.Weapon("a", 8));
-        allWeapons.put(2, new Records.Weapon("b", 10));
-        allWeapons.put(3, new Records.Weapon("c", 13));
-        allWeapons.put(4, new Records.Weapon("d", 15));
-        allWeapons.put(5, new Records.Weapon("e", 18));
-        allWeapons.put(6, new Records.Weapon("f", 20));
-        allWeapons.put(7, new Records.Weapon("g", 22));
+        allWeapons.put(1, new Records.Weapon("Bare hands", 8));
+        allWeapons.put(2, new Records.Weapon("Needle", 10));
+        allWeapons.put(3, new Records.Weapon("Metal Pipe", 13));
+        allWeapons.put(4, new Records.Weapon("Baseball bat", 15));
+        allWeapons.put(5, new Records.Weapon("Knife", 18));
+        allWeapons.put(6, new Records.Weapon("Nailed baseball bat", 20));
+        allWeapons.put(7, new Records.Weapon("Sword?", 22));
     }
 
 

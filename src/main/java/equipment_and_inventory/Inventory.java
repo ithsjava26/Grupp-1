@@ -17,7 +17,7 @@ public class Inventory {
         initiateAllEquipment();
 
         printPotions();
-        usedPotion(allPotions.get(3));
+        int useless = usePotion(allPotions.get(3));
         printPotions();
     }
     public static void initiateAllEquipment(){
@@ -129,7 +129,7 @@ public class Inventory {
         int nav = 0;
         while(running) {
             try {
-                IO.readln("Pick an option");
+                nav = Integer.parseInt(IO.readln("Pick an option"));
             } catch (NumberFormatException e) {
                 nav = 0;
             }
@@ -139,14 +139,11 @@ public class Inventory {
 
             switch(nav ){
                 case 1:
-                    usedPotion(allPotions.get(1));
-                    return allPotions.get(1).effectStrength();
+                    return usePotion(allPotions.get(1));
                 case 2:
-                    usedPotion(allPotions.get(2));
-                    return allPotions.get(2).effectStrength();
+                    return usePotion(allPotions.get(2));
                 case 3:
-                    usedPotion(allPotions.get(3));
-                    return allPotions.get(3).effectStrength();
+                    return usePotion(allPotions.get(3));
                 case 4:
                     running = false;
                     break;
@@ -155,7 +152,7 @@ public class Inventory {
         return 0;
     }
 
-    public int usedPotion(Records.Potion potion){
+    public int usePotion(Records.Potion potion){
 
         for (Records.Potion pot : potionBag){
             if(pot == potion){
