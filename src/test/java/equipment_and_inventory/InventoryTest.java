@@ -43,7 +43,7 @@ class InventoryTest {
     }
 
     @Test
-    void daontTakeArmorWithWorseStats() {
+    void dontTakeArmorWithWorseStats() {
         var inventory = new Inventory();
         inventory.initiateAllEquipment();
         inventory.takeEquipment(allArmors.get(6));
