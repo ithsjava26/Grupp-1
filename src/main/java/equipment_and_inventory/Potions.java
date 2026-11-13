@@ -7,11 +7,9 @@ public class Potions {
     static TreeMap<Object, Records.Potion> allPotions = new TreeMap<>();
 
     public static void initiatePotions(){
-        allPotions.put(1, new Records.Potion("Attack drink", "increases attack", 5));
-        allPotions.put(2, new Records.Potion("Defence drink", "increases defence", 5));
-        allPotions.put(3, new Records.Potion("Small recovery drink", "recovers hp", 25));
-        allPotions.put(4, new Records.Potion("Medium recovery drink", "recovers hp", 50));
-        allPotions.put(5, new Records.Potion("Large recovery drink", "recovers hp", 100));
+        allPotions.put(1, new Records.Potion("Small recovery drink", "recovers hp", 25));
+        allPotions.put(2, new Records.Potion("Medium recovery drink", "recovers hp", 50));
+        allPotions.put(3, new Records.Potion("Large recovery drink", "recovers hp", 100));
     }
 
     public static Records.Potion getRandomPotion(){

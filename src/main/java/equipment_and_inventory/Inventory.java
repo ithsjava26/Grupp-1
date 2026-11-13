@@ -58,8 +58,7 @@ public class Inventory {
     //-------------------------------------------------------
 
     public void printPotions (){
-        int strengthPotions = 0;
-        int defencePotions = 0;
+
         int smallHealthPotions = 0;
         int mediumHealthPotions = 0;
         int largeHealthPotions = 0;
@@ -67,12 +66,6 @@ public class Inventory {
         for(Records.Potion potion : potionBag){
 
             switch (potion.name()){
-                case "Attack drink":
-                    strengthPotions++;
-                    break;
-                case "Defence drink":
-                    defencePotions++;
-                    break;
                 case "Small recovery drink":
                     smallHealthPotions++;
                     break;
@@ -86,15 +79,12 @@ public class Inventory {
         }
 
 
-            IO.println("1. Attack drink: " + strengthPotions);
 
-            IO.println("2. Defence drink: " + defencePotions);
+            IO.println("1. Small recovery drink: " + smallHealthPotions);
 
-            IO.println("3. Small recovery drink: " + smallHealthPotions);
+            IO.println("2. Medium recovery drink: " + mediumHealthPotions);
 
-            IO.println("4. Medium recovery drink: " + mediumHealthPotions);
-
-            IO.println("5. Large recovery drink: " + largeHealthPotions);
+            IO.println("3. Large recovery drink: " + largeHealthPotions);
 
         IO.println();
 
@@ -102,9 +92,8 @@ public class Inventory {
 
 
     //------------------------------------------------------------------------------------------------------------
-    public String printPotionsWithSelection(){
-        int strengthPotions = 0;
-        int defencePotions = 0;
+    public int printPotionsWithSelection(){
+
         int smallHealthPotions = 0;
         int mediumHealthPotions = 0;
         int largeHealthPotions = 0;
@@ -112,12 +101,6 @@ public class Inventory {
         for(Records.Potion potion : potionBag){
 
             switch (potion.name()){
-                case "Attack drink":
-                    strengthPotions++;
-                    break;
-                case "Defence drink":
-                    defencePotions++;
-                    break;
                 case "Small recovery drink":
                     smallHealthPotions++;
                     break;
@@ -131,17 +114,15 @@ public class Inventory {
         }
 
 
-        IO.println("1. Attack drink: " + strengthPotions);
 
-        IO.println("2. Defence drink: " + defencePotions);
 
-        IO.println("3. Small recovery drink: " + smallHealthPotions);
+        IO.println("1. Small recovery drink: " + smallHealthPotions);
 
-        IO.println("4. Medium recovery drink: " + mediumHealthPotions);
+        IO.println("2. Medium recovery drink: " + mediumHealthPotions);
 
-        IO.println("5. Large recovery drink: " + largeHealthPotions);
+        IO.println("3. Large recovery drink: " + largeHealthPotions);
 
-        IO.println("6. Return");
+        IO.println("4. Return");
         IO.println();
 
         boolean running = true;
@@ -152,44 +133,39 @@ public class Inventory {
             } catch (NumberFormatException e) {
                 nav = 0;
             }
-            if(nav < 1 || nav > 6) {
+            if(nav < 1 || nav > 4) {
                 IO.readln("Please enter a valid number");
             }
 
             switch(nav ){
                 case 1:
                     usedPotion(allPotions.get(1));
-                    return allPotions.get(1).effect();
+                    return allPotions.get(1).effectStrength();
                 case 2:
                     usedPotion(allPotions.get(2));
-                    return allPotions.get(2).effect();
+                    return allPotions.get(2).effectStrength();
                 case 3:
                     usedPotion(allPotions.get(3));
-                    return allPotions.get(3).effect();
+                    return allPotions.get(3).effectStrength();
                 case 4:
-                    usedPotion(allPotions.get(4));
-                    return allPotions.get(4).effect();
-                case 5:
-                    usedPotion(allPotions.get(5));
-                    return allPotions.get(5).effect();
-                case 6:
                     running = false;
                     break;
             }
         }
-        return "";
+        return 0;
     }
 
-    public void usedPotion(Records.Potion potion){
+    public int usedPotion(Records.Potion potion){
 
         for (Records.Potion pot : potionBag){
             if(pot == potion){
                 potionBag.remove(potion);
-                break;
+                return potion.effectStrength();
             }
         }
 
         IO.println("You dont have any of those potions");
+        return 0;
     }
 
 
