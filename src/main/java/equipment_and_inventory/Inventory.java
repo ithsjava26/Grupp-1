@@ -126,7 +126,7 @@ public class Inventory {
         IO.println();
 
         boolean running = true;
-        int nav = 0;
+        int nav;
         while(running) {
             try {
                 nav = Integer.parseInt(IO.readln("Pick an option"));

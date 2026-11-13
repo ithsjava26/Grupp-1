@@ -37,9 +37,9 @@ public class Weapons {
 
     Records.Weapon[] getUpTo3Weapons(int amount){
         Records.Weapon[] sendItems = new Records.Weapon[3];
-        Records.Weapon first = null;
-        Records.Weapon second = null;
-        Records.Weapon third = null;
+        Records.Weapon first;
+        Records.Weapon second;
+        Records.Weapon third;
 
         if (amount > 3){
             amount = 3;
