@@ -6,10 +6,12 @@ public abstract class Character {
     private int health;
     private int maxHealth;
     private int defense;
+    private int missChancePenalty = 0;
+    private int debuffRoundsRemaining = 0;
 
     public Character(String name, int maxHealth, int defense) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Name cannot be empty");
+            throw new IllegalArgumentException("Name cannot be null");
         }
         if (maxHealth <= 0) {
             throw new IllegalArgumentException("Max health must be positive");
@@ -80,5 +82,33 @@ public abstract class Character {
         }
 
         defense += amount;
+    }
+
+    public int getMissChancePenalty() {
+        return missChancePenalty;
+    }
+
+    public void applyMissChancePenalty(int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Penalty must be positive");
+        }
+
+        missChancePenalty = (int) Math.min(100L, (long) missChancePenalty + amount);
+        debuffRoundsRemaining = 2;
+    }
+
+    public void reduceDebuffDuration() {
+        if (debuffRoundsRemaining > 0) {
+            debuffRoundsRemaining--;
+
+            if (debuffRoundsRemaining == 0) {
+                clearMissChancePenalty();
+            }
+        }
+    }
+
+    public void clearMissChancePenalty() {
+        missChancePenalty = 0;
+        debuffRoundsRemaining = 0;
     }
 }
