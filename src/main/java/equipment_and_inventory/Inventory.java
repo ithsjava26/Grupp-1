@@ -13,12 +13,7 @@ public class Inventory {
 
     static ArrayList <Records.Potion> potionBag = new ArrayList<>();
 
-    void main(){
-        initiateAllEquipment();
 
-       Records.Weapon wep = getHeldWeapon();
-       IO.println(wep);
-    }
     public static void initiateAllEquipment(){
         initiateAllWeapons();
         initiateAllArmors();
@@ -32,26 +27,60 @@ public class Inventory {
         potionBag.add(allPotions.get(2));
     }
 
-    public Records.Weapon getHeldWeapon(){return equippedWeapon;}
+    public Records.Weapon getHeldWeapon(){
+        try{
+            return equippedWeapon;
+        }catch(NullPointerException e){
+            initiateAllWeapons();
+        }
+        return equippedWeapon;
+    }
 
     public int getHeldWeaponAttack(){
+        try{
+            return equippedWeapon.attack();
+        }catch(NullPointerException e){
+            initiateAllWeapons();
+        }
         return equippedWeapon.attack();
     }
 
     public String getHeldWeaponName(){
+        try{
+            return equippedWeapon.name();
+        }catch(NullPointerException e){
+            initiateAllWeapons();
+        }
         return equippedWeapon.name();
     }
 
 
 
     //-------------------------------------------
-    public Records.Armor GetHeldArmor(){return equippedArmor;}
+    public Records.Armor GetHeldArmor(){
+        try{
+            return equippedArmor;
+        }catch(NullPointerException e){
+            initiateAllWeapons();
+        }
+        return equippedArmor;
+    }
 
     public int getEquippedArmorDefense(){
+        try{
+            return equippedArmor.defence();
+        }catch(NullPointerException e){
+            initiateAllWeapons();
+        }
         return equippedArmor.defence();
     }
 
     public String getEquippedArmorName(){
+        try{
+            return equippedArmor.name();
+        }catch(NullPointerException e){
+            initiateAllWeapons();
+        }
         return equippedArmor.name();
     }
 

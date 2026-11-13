@@ -197,13 +197,6 @@ public class Loot{
 
     }
 
-    void main(){
-        initiateAllEquipment();
-        getLoot();
-
-
-    }
-
 
     //Kan öka mängd och göra så att starter mängden är högre än 1
     public static int lootAmount(){
