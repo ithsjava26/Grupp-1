@@ -29,6 +29,17 @@ class DamageCalculatorTest {
 
             return value;
         }
+
+        @Override
+        public long nextLong(long bound) {
+            int value = values[index++];
+
+            if (value < 0 || value >= bound) {
+                throw new IllegalArgumentException("Invalid random value");
+            }
+
+            return value;
+        }
     }
 
     @Test

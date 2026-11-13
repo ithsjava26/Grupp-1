@@ -31,7 +31,9 @@ public class DamageCalculator {
             return false;
         }
 
-        int damage = minDamage + random.nextInt(maxDamage - minDamage + 1);
+        long damageRange = (long) maxDamage - minDamage + 1;
+
+        int damage = (int) (minDamage + random.nextLong(damageRange));
 
         boolean critical = random.nextInt(100) < 10;
 

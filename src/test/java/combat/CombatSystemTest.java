@@ -29,6 +29,17 @@ class CombatSystemTest {
 
             return value;
         }
+
+        @Override
+        public long nextLong(long bound) {
+            int value = values[index++];
+
+            if (value < 0 || value >= bound) {
+                throw new IllegalArgumentException("Invalid random value");
+            }
+
+            return value;
+        }
     }
 
     @Test
@@ -219,7 +230,7 @@ class CombatSystemTest {
     @Test
     void bossDebuffLastsForTwoPlayerTurns() {
 
-        Player player = new Player("Player", 100, 0);
+        Player player = new Player("Player", 110, 0);
         Enemy boss = new Enemy( EnemyType.POLICEMAN_BOB );
 
         CombatSystem combat = new CombatSystem(player, boss);
@@ -239,7 +250,7 @@ class CombatSystemTest {
     @Test
     void playerDebuffDoesNotAffectEnemyAccuracy() {
 
-        Player player = new Player("Player", 100, 0);
+        Player player = new Player("Player", 110, 0);
         Enemy boss = new Enemy( EnemyType.POLICEMAN_BOB );
 
         CombatSystem combat = new CombatSystem(player, boss);

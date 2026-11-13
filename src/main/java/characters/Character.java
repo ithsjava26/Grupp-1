@@ -93,7 +93,7 @@ public abstract class Character {
             throw new IllegalArgumentException("Penalty must be positive");
         }
 
-        missChancePenalty = Math.min(100, missChancePenalty + amount);
+        missChancePenalty = (int) Math.min(100L, (long) missChancePenalty + amount);
         debuffRoundsRemaining = 2;
     }
 
