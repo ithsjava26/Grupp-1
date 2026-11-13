@@ -11,14 +11,13 @@ public class Inventory {
     private static Records.Weapon equippedWeapon;
     private static Records.Armor equippedArmor;
 
-    private static ArrayList <Records.Potion> potionBag = new ArrayList<>();
+    static ArrayList <Records.Potion> potionBag = new ArrayList<>();
 
     void main(){
         initiateAllEquipment();
 
-        printPotions();
-        int useless = usePotion(allPotions.get(3));
-        printPotions();
+       Records.Weapon wep = getHeldWeapon();
+       IO.println(wep);
     }
     public static void initiateAllEquipment(){
         initiateAllWeapons();
@@ -29,10 +28,11 @@ public class Inventory {
         equippedArmor = allArmors.get(1);
 
         potionBag.add(allPotions.get(1));
-        potionBag.add(allPotions.get(3));
-        potionBag.add(allPotions.get(3));
+        potionBag.add(allPotions.get(2));
+        potionBag.add(allPotions.get(2));
     }
 
+    public Records.Weapon getHeldWeapon(){return equippedWeapon;}
 
     public int getHeldWeaponAttack(){
         return equippedWeapon.attack();
@@ -45,6 +45,8 @@ public class Inventory {
 
 
     //-------------------------------------------
+    public Records.Armor GetHeldArmor(){return equippedArmor;}
+
     public int getEquippedArmorDefense(){
         return equippedArmor.defence();
     }
@@ -188,4 +190,6 @@ public class Inventory {
     public static void takeEquipment(Records.Potion newPotion){
         potionBag.add(newPotion);
     }
+
+
 }
