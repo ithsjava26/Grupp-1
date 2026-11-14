@@ -32,7 +32,7 @@ class PotionsTest {
     }
 
     @Test
-    void getRandomPotionWorksEvenIfMapIsInitiated(){
+    void getRandomPotionInitiatesMapIfNeeded(){
         var potion = new Potions();
 
         Records.Potion savedPotion = potion.getRandomPotion();

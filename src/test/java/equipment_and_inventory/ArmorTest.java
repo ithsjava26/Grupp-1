@@ -32,7 +32,7 @@ class ArmorTest {
     }
 
     @Test
-    void getRandomWeaponWorkEvenIfMapIsNotInitiated() {
+    void getRandomWeaponWInitiatesMapIfNeeded() {
         var armor = new Armor();
 
         Records.Armor savedArmor = armor.getRandomArmor();

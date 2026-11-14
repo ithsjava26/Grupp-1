@@ -33,7 +33,7 @@ class WeaponsTest {
     }
 
     @Test
-    void getRandomWeaponWorkEvenIfMapIsNotInitiated() {
+    void getRandomWeaponInitiatesMapIfNeeded() {
         var weapons = new Weapons();
 
         Records.Weapon savedWeapon = weapons.getRandomWeapon();
