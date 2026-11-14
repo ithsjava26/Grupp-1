@@ -6,7 +6,7 @@ public class Potions {
 
     static TreeMap<Object, Records.Potion> allPotions = new TreeMap<>();
 
-    public static void initiatePotions(){
+    public static void initiateAllPotions(){
         allPotions.put(1, new Records.Potion("Small recovery drink", "recovers hp", 25));
         allPotions.put(2, new Records.Potion("Medium recovery drink", "recovers hp", 50));
         allPotions.put(3, new Records.Potion("Large recovery drink", "recovers hp", 100));
@@ -14,14 +14,14 @@ public class Potions {
 
     public static Records.Potion getRandomPotion(){
         if(allPotions.isEmpty()){
-            initiatePotions();
+            initiateAllPotions();
         }
         return allPotions.get(((int) (Math.random() * (3)) + 1));
     }
 
     public static Records.Potion getPotionById(int id){
         if(allPotions.isEmpty()){
-            initiatePotions();
+            initiateAllPotions();
         }
 
         if(allPotions.containsKey(id)){

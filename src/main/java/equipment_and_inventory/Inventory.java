@@ -17,7 +17,7 @@ public class Inventory {
     public static void initiateAllEquipment(){
         initiateAllWeapons();
         initiateAllArmors();
-        initiatePotions();
+        initiateAllPotions();
 
         equippedWeapon = allWeapons.get(1);
         equippedArmor = allArmors.get(1);
