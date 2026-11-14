@@ -44,6 +44,8 @@ public class Loot{
         }
     }
 
+
+
     //-------------------------------------------------------------------------------------------------------
     public void getLootWithOptionSelect(){
 
@@ -198,7 +200,8 @@ public class Loot{
     }
 
 
-    //Kan öka mängd och göra så att starter mängden är högre än 1
+
+    //------------------------------------------------------------------
     public static int lootAmount(){
         int amount = 1;
 
