@@ -13,10 +13,17 @@ public class Potions {
     }
 
     public static Records.Potion getRandomPotion(){
-        return allPotions.get(((int) (Math.random() * (5)) + 1));
+        if(allPotions.isEmpty()){
+            initiatePotions();
+        }
+        return allPotions.get(((int) (Math.random() * (3)) + 1));
     }
 
     public static Records.Potion getPotionById(int id){
+        if(allPotions.isEmpty()){
+            initiatePotions();
+        }
+
         if(allPotions.containsKey(id)){
             return allPotions.get(id);
         }else{

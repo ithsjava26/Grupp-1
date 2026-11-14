@@ -19,13 +19,20 @@ public class Weapons {
 
 
     public static Records.Weapon getRandomWeapon(){
+        if(allWeapons.isEmpty()){
+            initiateAllWeapons();
+        }
 
-        return allWeapons.get(((int) (Math.random() * (6)) + 1));
+        return allWeapons.get(((int) (Math.random() * (7)) + 1));
     }
 
 
 
     public Records.Weapon getWeaponById(int id){
+        if(allWeapons.isEmpty()){
+            initiateAllWeapons();
+        }
+
         if(allWeapons.containsKey(id)){
             return allWeapons.get(id);
         }else{

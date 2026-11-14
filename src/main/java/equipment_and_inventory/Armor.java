@@ -20,13 +20,19 @@ public class Armor {
     }
 
     public static Records.Armor getRandomArmor(){
-
-        return allArmors.get(((int) (Math.random() * (6)) + 1));
+        if(allArmors.isEmpty()){
+            initiateAllArmors();
+        }
+        return allArmors.get(((int) (Math.random() * (9)) + 1));
     }
 
 
 
     public static Records.Armor getArmorById(int id){
+        if(allArmors.isEmpty()){
+            initiateAllArmors();
+        }
+
         if(allArmors.containsKey(id)){
             return allArmors.get(id);
         }else{
